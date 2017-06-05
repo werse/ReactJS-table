@@ -33,4 +33,5 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.16'
     compile "com.h2database:h2"
     compile 'mysql:mysql-connector-java'
+    compile 'org.hibernate:hibernate-c3p0:5.2.10.Final'
 }
