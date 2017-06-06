@@ -34,4 +34,6 @@ dependencies {
     compile "com.h2database:h2"
     compile 'mysql:mysql-connector-java'
     compile 'org.hibernate:hibernate-c3p0:5.2.10.Final'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1'
 }
