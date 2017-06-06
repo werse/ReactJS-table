@@ -1,0 +1,26 @@
+{
+  "name": "ReactJS-table",
+  "version": "0.0.1",
+  "description": "Education project with Spring Boot and ReactJS",
+  "main": "index.js",
+  "readme": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/werse/ReactJS-table.git"
+  },
+  "author": "Pavel Filippov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/werse/ReactJS-table/issues"
+  },
+  "homepage": "https://github.com/werse/ReactJS-table",
+  "dependencies": {
+    "react": "^15.5.4"
+  },
+  "devDependencies": {
+    "webpack": "^2.6.1"
+  }
+}

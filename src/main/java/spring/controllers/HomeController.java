@@ -1,13 +1,13 @@
 package spring.controllers;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
-@RestController
+@Controller
 public class HomeController {
 
     @RequestMapping(value = "/")
