@@ -11,16 +11,38 @@ var BUILD_DIR = path.resolve(__dirname, 'public/generated');
 var APP_DIR = path.resolve(__dirname, 'public/app');
 
 const plugins = [
+
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+  }),
+
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery'
   })
 ];
 
 const rules = [{
-  test: /\.jsx?/,
-  include: APP_DIR,
-  loader: 'babel-loader'
-}];
+    test: /\.jsx?/,
+    include: APP_DIR,
+    loader: 'babel-loader'
+  },
+  {
+    test: /\.css$/,
+    exclude: BUILD_DIR,
+    use: [{
+        loader: 'style-loader'
+      },
+      {
+        loader: 'css-loader'
+      },
+      {
+        loader: 'postcss-loader'
+      }
+    ]
+  }
+];
 
 const config = {
   entry: `${APP_DIR}/app.jsx`,
