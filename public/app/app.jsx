@@ -1,17 +1,14 @@
 import $ from 'jquery';
-import { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 
-
-console.log(document.getElementById('app'));
-
-class App extends Component {
+class App extends React.Component {
   render () {
     return <p> Hello React!</p>;
   }
 }
 
-render(<App />, document.getElementById('app'));
+  render(<App />, document.getElementById('app'));
 
 
 function getUsers(success, error) {
