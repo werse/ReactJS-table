@@ -1,96 +1,114 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {render} from 'react-dom';
-import DataTable from './data-table';
+import UserTable from './user-table';
 import {tables, grid, type} from 'bootstrap-css';
 import ReactModal from 'react-modal';
-import styles from './app.css'
+import style from './app.css'
+import fields from './user-fields.json'
 
-console.log(styles);
+class App extends Component {
 
-const data = [
-  {
-    id: 1,
-    firstName: 'John'
-  }, {
-    id: 2,
-    firstName: 'Jim'
-  }, {
-    id: 3,
-    firstName: 'July'
-  }
-];
-
-const columnNames = [
-  {
-    key: 'id',
-    value: 'Id'
-  }, {
-    key: 'firstName',
-    value: 'First Name'
-  }, {
-    key: 'lastNane',
-    value: 'Last Name'
-  }
-];
-
-class App extends React.Component {
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      modalIsOpen: false
+      isNotificationOpenned: false,
+      id: 4,
+      notificationMessage: "Technical Error",
+      columnNames: [],
+      isLoading: true
     };
-
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.showNotification = this.showNotification.bind(this);
+    this.afterShowingModal = this.afterShowingModal.bind(this);
+    this.closeNotification = this.closeNotification.bind(this);
+    this.addUser = this.addUser.bind(this);
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  getInitialState() {
+    return {users: undefined}
   }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
+  loadUsers() {
+    $.ajax({
+      method: 'GET',
+      url: '/users',
+      success: response => this.setState({users: response, isLoading: false}),
+      error: () => this.setState({isNotificationOpenned: true, isLoading: false})
+    });
   }
 
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  componentDidMount() {
+    this.loadUsers();
+  }
+
+  showNotification() {
+    this.setState({isNotificationOpenned: true});
+  }
+
+  afterShowingModal() {
+    setTimeout(this.closeNotification, 750);
+  }
+
+  closeNotification() {
+    this.setState({isNotificationOpenned: false});
+  }
+
+  addUser() {
+    data.push({id: this.state.id, firstName: 'John'});
+    this.setState({
+      users: data,
+      id: this.state.id + 1
+    });
+  }
+
+getDataTableJSX() {
+  const {users} = this.state;
+  if (users) {
+    return (<UserTable
+      className='table table-hover mt-3'
+      users={users}
+      fields={fields}
+      showNotification={this.showNotification}/>);
+  }
+  return this.getEmptyViewJSX();
+}
+
+  getEmptyViewJSX() {
+    return <p className='text-center'>{'No users were loaded'}</p>;
+  }
+
+  getSpinnerJSX() {
+    return (
+      <p className='text-center'>{'data is loading...'}</p>);
+  }
+
+  getNotificationPopupJSX() {
+    const {isNotificationOpenned, notificationMessage} = this.state;
+    return <ReactModal
+      isOpen={isNotificationOpenned}
+      onAfterOpen={this.afterShowingModal}
+      onRequestClose={this.closeNotification}
+      contentLabel="Example Modal"
+      className='modalWindow'
+      overlayClassName='modalWindowOverlay'>
+      <div className="modalWindowAligner">
+        <h3 className="text-center errorMessageModal">{notificationMessage}</h3>
+      </div>
+    </ReactModal>
   }
 
   render() {
+    const {isLoading} = this.state;
     return (
       <div className='container'>
-        <h2 className='mt-3'>Users</h2>
-        <div className='row'>
-          <DataTable className='table table-hover mt-3' data={data} columnNames={columnNames} />
-        </div>
-
-        <button onClick={this.openModal}>Open Modal</button>
-        <ReactModal isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-          className='modalWindow'
-          overlayClassName='modalWindowOverlay'>
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <div>I am a modal</div>
-        </ReactModal>
+        <h2 className='mt-3 text-center'>Users</h2>
+        <button onClick={this.showNotification}>Open Modal</button>
+        <button onClick={this.addUser}>Add User</button>
+        {isLoading ? this.getSpinnerJSX() : this.getDataTableJSX()}
+        {this.getNotificationPopupJSX()}
       </div>
     );
   }
 }
 
-
-
-const header = <h1>This is h1 block</h1>;
-
 render(
   <App/>, document.getElementById('app'));
-
-function getUsers(success, error) {
-  return $.get('/users').done(response => success(response)).catch(response => error(response));
-};
-
-const isDev = project => project === 'Dev';

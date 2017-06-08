@@ -6,6 +6,7 @@ const isDev = NODE_ENV === 'development';
 const excludedModules = /(node_modules|bower_components)/;
 const localIdentName = '[name]-[local]-[hash:base64:8]';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const reactIconPath = path.resolve(__dirname, 'node_modules/react-icons');
 
 var BUILD_DIR = path.resolve(__dirname, 'public/generated');
 var APP_DIR = path.resolve(__dirname, 'public/app');
@@ -26,7 +27,7 @@ const plugins = [
 const rules = [{
     test: /\.jsx?/,
     include: APP_DIR,
-    loader: 'babel-loader'
+    use: 'babel-loader'
   },
   {
     test: /\.css$/,
@@ -39,8 +40,13 @@ const rules = [{
       },
       {
         loader: 'postcss-loader'
-      }
+      },
     ]
+  },
+  {
+    test: /\.json$/,
+    include: APP_DIR,
+    use: 'json-loader'
   }
 ];
 
