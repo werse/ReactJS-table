@@ -1,0 +1,35 @@
+.modalWindow {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 250px);
+  min-width: 500px;
+  min-height: 200px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalWindowOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: none;
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.errorMessageModal {
+  color: white;
+  min-height: 100%;
+}
+
+.loadingSpinner {
+  justify-content: center;
+  text-align: center;
+}

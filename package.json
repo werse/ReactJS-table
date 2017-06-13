@@ -19,13 +19,13 @@
   },
   "homepage": "https://github.com/werse/ReactJS-table",
   "dependencies": {
-    "bootstrap-css": "^4.0.0-alpha.5",
-    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "react": "^15.5.4",
-    "react-addons-css-transition-group": "^15.5.2",
+    "react-bootstrap": "^0.30.10",
+    "react-bootstrap-date-picker": "^5.0.1",
     "react-dom": "^15.5.4",
-    "react-icons": "^2.2.5",
     "react-modal": "^1.7.7"
   },
   "devDependencies": {

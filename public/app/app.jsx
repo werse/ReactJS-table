@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import UserTable from './user-table';
-import {tables, grid, type} from 'bootstrap-css';
 import ReactModal from 'react-modal';
 import style from './app.css'
 import fields from './user-fields.json'
@@ -63,11 +62,12 @@ class App extends Component {
 getDataTableJSX() {
   const {users} = this.state;
   if (users) {
-    return (<UserTable
-      className='table table-hover mt-3'
-      users={users}
-      fields={fields}
-      showNotification={this.showNotification}/>);
+    return (
+      <UserTable
+        className='table table-hover mt-3'
+        users={users}
+        fields={fields}
+        showNotification={this.showNotification}/>);
   }
   return this.getEmptyViewJSX();
 }
@@ -101,8 +101,6 @@ getDataTableJSX() {
     return (
       <div className='container'>
         <h2 className='mt-3 text-center'>Users</h2>
-        <button onClick={this.showNotification}>Open Modal</button>
-        <button onClick={this.addUser}>Add User</button>
         {isLoading ? this.getSpinnerJSX() : this.getDataTableJSX()}
         {this.getNotificationPopupJSX()}
       </div>

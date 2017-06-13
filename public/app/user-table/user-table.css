@@ -1,0 +1,15 @@
+.userDetailsModal {
+  position: absolute;
+  top: 5%;
+  left: 30%;
+  min-width: 40%;
+}
+
+.userDetailsModalOverlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
