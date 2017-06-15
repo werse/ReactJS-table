@@ -1,2 +1,7 @@
 .idea
 *.iml
+public/generated
+node_modules
+.gradle
+build
+classes

@@ -1,0 +1,78 @@
+{
+  "id": {
+    "label": "Id",
+    "required": false,
+    "hidden": true,
+    "pattern": "^\\d+$",
+    "type": "text",
+    "overviewExcluded": true
+  },
+  "username": {
+    "label": "Username",
+    "required": true,
+    "hidden": false,
+    "pattern": "^[a-zA-Z0-9-_.]{3,30}$",
+    "type": "text"
+  },
+  "dateOfBirth": {
+    "label": "Date Of Birth",
+    "required": true,
+    "hidden": false,
+    "pattern": "(\\d{4}-\\d{2}-\\d{2})|(\\d{2}-\\d{2}-\\d{4})|(\\d{2}.\\d{2}.\\d{4})",
+    "type": "date",
+    "overviewExcluded": true
+  },
+  "firstName": {
+    "label": "First Name",
+    "required": true,
+    "hidden": false,
+    "pattern": "^[A-Z][a-z]{0,30}$",
+    "type": "text"
+  },
+  "lastName": {
+    "label": "Last Name",
+    "required": true,
+    "hidden": false,
+    "pattern": "^[A-Z][a-z]{0,30}$",
+    "type": "text"
+  },
+  "middleName": {
+    "label": "Middle Name",
+    "required": false,
+    "hidden": false,
+    "pattern": "^[A-Z][a-z]{0,30}$",
+    "type": "text",
+    "overviewExcluded": true
+  },
+  "email": {
+    "label": "Email",
+    "required": true,
+    "hidden": false,
+    "pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+    "type": "text"
+  },
+  "phone": {
+    "label": "Phone Number",
+    "required": true,
+    "hidden": false,
+    "pattern": "^[+]?\\d\\s?[(]?(\\d{3})[)]?\\s?\\d{3}[-]?(\\d{2}[-]?\\d{2})|(\\d{4})$",
+    "mask": "+9 (999) 999-99-99",
+    "type": "mobile phone"
+  },
+  "description": {
+    "label": "Description",
+    "required": false,
+    "hidden": false,
+    "pattern": ".*",
+    "type": "textarea",
+    "overviewExcluded": true
+  },
+  "registrationTime": {
+    "label": "Registration Time",
+    "required": false,
+    "hidden": true,
+    "pattern": null,
+    "type": "datetime",
+    "overviewExcluded": true
+  }
+}
