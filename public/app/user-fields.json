@@ -1,9 +1,10 @@
 {
   "id": {
-    "label": "#",
+    "label": "Id",
     "required": false,
     "hidden": true,
-    "type": "numeric"
+    "pattern": "^\\d+$",
+    "type": "text"
   },
   "username": {
     "label": "Username",
@@ -14,27 +15,27 @@
   },
   "dateOfBirth": {
     "label": "Date Of Birth",
-    "required": false,
+    "required": true,
     "hidden": false,
     "pattern": "(\\d{4}-\\d{2}-\\d{2})|(\\d{2}-\\d{2}-\\d{4})|(\\d{2}.\\d{2}.\\d{4})",
     "type": "date"
   },
   "firstName": {
     "label": "First Name",
-    "required": false,
-    "hidden": false,
-    "pattern": "^[A-Z][a-z]{0,30}$",
-    "type": "text"
-  },
-  "middleName": {
-    "label": "Middle Name",
-    "required": false,
+    "required": true,
     "hidden": false,
     "pattern": "^[A-Z][a-z]{0,30}$",
     "type": "text"
   },
   "lastName": {
     "label": "Last Name",
+    "required": true,
+    "hidden": false,
+    "pattern": "^[A-Z][a-z]{0,30}$",
+    "type": "text"
+  },
+  "middleName": {
+    "label": "Middle Name",
     "required": false,
     "hidden": false,
     "pattern": "^[A-Z][a-z]{0,30}$",
@@ -60,7 +61,7 @@
     "required": false,
     "hidden": false,
     "pattern": ".*",
-    "type": "text"
+    "type": "textarea"
   },
   "registrationTime": {
     "label": "Registration Time",

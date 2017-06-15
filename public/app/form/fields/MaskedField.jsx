@@ -1,24 +1,24 @@
 import React from 'react';
-import {FormGroup, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Col} from 'react-bootstrap';
+import InputMask from 'react-input-mask';
 
-
-export default class TextFieldWithValidation extends React.Component {
+export default class MaskedField extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       formObject: props.formObject
     }
-    this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   getValidationState() {
-    const {id, field} = this.props;
-    const value = this.state.formObject[id];
+    const {mask, pattern} = this.props.field;
+    const {formObject} = this.state;
+    const value = formObject[this.props.id];
     if (!value) return 'warning';
-    if (!field.pattern) return null;
-    if (value.match(new RegExp(field.pattern, 'g'))) {
+    if (!pattern) return null;
+    if (value.match(new RegExp(pattern, 'g'))) {
       return 'success';
     }
     return 'error';
@@ -31,13 +31,13 @@ export default class TextFieldWithValidation extends React.Component {
   }
 
   render() {
-    const {label, hidden, required} = this.props.field;
+    const {label, mask, hidden, required} = this.props.field;
     const placeholder = `Enter your ${label.toLowerCase()} ...`;
     return (
-      <FormGroup controlId={this.props.id} validationState={required && this.getValidationState()} className={`${hidden ? 'hidden':''}`}>
+      <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden':''}`} validationState={required && this.getValidationState()}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <FormControl type="text" autoComplete='off' placeholder={placeholder} onChange={this.handleChange} />
+          <InputMask mask={mask} maskChar={'_'} placeholder={placeholder} className={'form-control'} onChange={this.handleChange}/>
           <FormControl.Feedback />
         </Col>
       </FormGroup>

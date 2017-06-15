@@ -36,7 +36,6 @@ public class User {
     private String phone;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
     @DateTimeFormat(iso = ISO.DATE_TIME)
     private LocalDateTime registrationTime;
 

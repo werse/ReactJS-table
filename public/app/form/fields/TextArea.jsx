@@ -1,7 +1,8 @@
 import React from 'react';
-import {FormGroup, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Col} from 'react-bootstrap';
+import style from './style.css'
 
-export default class TextField extends React.Component {
+export default class TextArea extends React.Component {
 
   constructor(props) {
     super(props);
@@ -19,12 +20,12 @@ export default class TextField extends React.Component {
 
   render() {
     const {label, hidden} = this.props.field;
-    const placeholder = `Enter your ${label.toLowerCase()} ...`;
+    const  placeholder = `Enter your ${label.toLowerCase()} ...`;
     return (
       <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden':''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <FormControl type="text" placeholder={placeholder} onChange={this.handleChange}/>
+          <FormControl componentClass='textarea' placeholder={placeholder} onChange={this.handleChange}/>
         </Col>
       </FormGroup>
     );

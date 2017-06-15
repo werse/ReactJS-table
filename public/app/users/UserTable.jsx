@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import ReactModal from 'react-modal';
-import style from './user-table.css';
+import style from './style.css';
 import {Modal, Form, FormGroup, FormControl, ControlLabel, FieldGroup, Col} from 'react-bootstrap';
 import TextField from '../form/fields/TextField';
 import TextFieldWithValidation from '../form/fields/TextFieldWithValidation';
 import UserDetails from '../modal/UserDetails';
 import NewUserForm from '../modal/NewUserForm';
+import TableRow from './table/TableRow.jsx';
+import HeaderRow from './table/HeaderRow.jsx';
 
 export default class UserTable extends Component {
 
@@ -75,49 +77,6 @@ export default class UserTable extends Component {
           </tbody>
         </table>
       </div>
-    );
-  }
-}
-
-class HeaderCell extends Component {
-  render() {
-    return <th className='text-center'>{this.props.label}</th>;
-  }
-}
-
-class HeaderRow extends Component {
-  render() {
-    const {fields} = this.props;
-    return (
-      <tr>{Object.keys(fields).map(item => <HeaderCell key={item} label={fields[item].label}/>)}</tr>
-    );
-  }
-}
-
-class TableCell extends Component {
-  render() {
-    const {value, colspan} = this.props;
-    return <td className='text-center'>{this.props.value}</td>;
-  }
-}
-
-class TableRow extends Component {
-
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event) {
-    const {showUserDetails, user} = this.props;
-    event.preventDefault();
-    showUserDetails(user);
-  }
-
-  render() {
-    const {keys, user} = this.props;
-    return (
-      <tr onClick={this.handleClick}>{keys.map(key => <TableCell key={`${key}`} value={user[key] || '' } />)}</tr>
     );
   }
 }
