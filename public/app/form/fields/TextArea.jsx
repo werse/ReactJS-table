@@ -25,7 +25,8 @@ export default class TextArea extends React.Component {
       <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden':''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <FormControl componentClass='textarea' placeholder={placeholder} onChange={this.handleChange}/>
+          <FormControl componentClass='textarea' placeholder={placeholder} onChange={this.handleChange}
+            value={this.state.formObject[this.props.id] || undefined} onBlur={this.props.onBlur}/>
         </Col>
       </FormGroup>
     );

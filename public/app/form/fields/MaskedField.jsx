@@ -37,7 +37,8 @@ export default class MaskedField extends React.Component {
       <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden':''}`} validationState={required && this.getValidationState()}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <InputMask mask={mask} maskChar={'_'} placeholder={placeholder} className={'form-control'} onChange={this.handleChange}/>
+          <InputMask mask={mask} maskChar={'_'} placeholder={placeholder} className={'form-control'} onChange={this.handleChange}
+            value={this.state.formObject[this.props.id]} onBlur={this.props.onBlur}/>
           <FormControl.Feedback />
         </Col>
       </FormGroup>

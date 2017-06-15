@@ -12,9 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import static org.springframework.format.annotation.DateTimeFormat.*;
+import java.time.ZonedDateTime;
 
 @Entity(name = "USERS")
 @Data
@@ -35,11 +33,11 @@ public class User {
     private String description;
     private String phone;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    private LocalDateTime registrationTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    private ZonedDateTime registrationTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(iso = ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 }

@@ -14,7 +14,9 @@ export default class DatePickerComp extends React.Component {
 
   getValidationState() {
     const datePattern = /^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)$/g;
-    const value = this.state.formObject[this.props.id];
+    const {formObject} = this.state;
+    const {id} = this.props;
+    const value = formObject[id] ? new Date(formObject[id]).toISOString() : undefined;
     if (!value) return 'warning';
     if (value.match(datePattern)) {
       return 'success';
@@ -29,14 +31,16 @@ export default class DatePickerComp extends React.Component {
   }
 
   render() {
+    const {id} = this.props;
     const {label, hidden, required} = this.props.field;
     const {formObject} = this.state;
     const placeholder = `Enter your ${label.toLowerCase()} ...`;
+    const value = formObject[id] ? new Date(formObject[id]).toISOString() : undefined;
     return (
-      <FormGroup controlId={this.props.id} validationState={required ? this.getValidationState() : null} className={`${hidden ? 'hidden':''}`}>
+      <FormGroup controlId={id} validationState={required ? this.getValidationState() : null} className={`${hidden ? 'hidden':''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <DatePicker placeholder={placeholder} showClearButton={false} onChange={this.handleChange} value={formObject[this.props.id]} />
+          <DatePicker placeholder={placeholder} showClearButton={false} onChange={this.handleChange} value={value} onBlur={this.props.onBlur} />
           <FormControl.Feedback />
         </Col>
       </FormGroup>

@@ -15,7 +15,8 @@ export default class UserTable extends Component {
     super(props);
     this.state = {
       showUserDetails: false,
-      showNewUserForm: false
+      showNewUserForm: false,
+      users: props.users
     }
     this.showUserDetails = this.showUserDetails.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -42,33 +43,31 @@ export default class UserTable extends Component {
   }
 
   getModalJSX() {
-    console.log('in getNewUserFormBodyJSX');
-    const {user, showUserDetails, showNewUserForm} = this.state;
+    const {user, users, showUserDetails, showNewUserForm} = this.state;
     const {fields} = this.props;
     if (showUserDetails) {
-      return <UserDetails show={showUserDetails} user={user}
-          fields={fields} onHide={this.closeModal} type='user-details'/>;
+      return <UserDetails show={showUserDetails} fields={fields} onHide={this.closeModal} user={user} users={users} />;
     }
     if (showNewUserForm) {
-      return <NewUserForm show={showNewUserForm} onHide={this.closeModal} fields={fields}/>;
+      return <NewUserForm show={showNewUserForm} onHide={this.closeModal} fields={fields} users={users} />;
     }
   }
 
   render() {
-    const {users, fields} = this.props;
-    const {isUserDetailsOpenned, isNewUserFormOpenned} = this.state;
+    const {fields} = this.props;
+    const {isUserDetailsOpenned, isNewUserFormOpenned, users} = this.state;
     return (
       <div className='row'>
         {this.isModalOpen() && this.getModalJSX()}
         <table className={this.props.className}>
           <thead className='thead-inverse'>
-            <HeaderRow fields={fields}/>
+            <HeaderRow schema={fields}/>
           </thead>
           <tbody>
-            {users.map((user, index) => <TableRow key={`tableRow-${index}`} keys={Object.keys(fields)}
+            {users.map((user, index) => <TableRow key={`tableRow-${index}`} schema={fields}
                                                   user={user} showUserDetails={this.showUserDetails}/>)}
             <tr>
-              <td className='text-right pr-5' colSpan={`${Object.keys(fields).length}`} onClick={this.showNewUserForm}>
+              <td className='text-right' colSpan={`${Object.keys(fields).length}`} onClick={this.showNewUserForm}>
                 <button className="btn btn-secondary" type="button" aria-disabled="true">
                   <b>{'Add new user'}</b>
                 </button>

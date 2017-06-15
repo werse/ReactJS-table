@@ -4,9 +4,14 @@ import HeaderCell from './HeaderCell.jsx';
 export default class HeaderRow extends React.Component {
 
   render() {
-    const {fields} = this.props;
+    const {schema} = this.props;
     return (
-      <tr>{Object.keys(fields).map(item => <HeaderCell key={item} label={fields[item].label}/>)}</tr>
+      <tr>{Object.keys(schema).map(key => {
+          if (schema[key].overviewExcluded != true) {
+            return <HeaderCell key={key} label={schema[key].label}/>;
+          }})
+        }
+      </tr>
     );
   }
 }

@@ -4,7 +4,8 @@
     "required": false,
     "hidden": true,
     "pattern": "^\\d+$",
-    "type": "text"
+    "type": "text",
+    "overviewExcluded": true
   },
   "username": {
     "label": "Username",
@@ -18,7 +19,8 @@
     "required": true,
     "hidden": false,
     "pattern": "(\\d{4}-\\d{2}-\\d{2})|(\\d{2}-\\d{2}-\\d{4})|(\\d{2}.\\d{2}.\\d{4})",
-    "type": "date"
+    "type": "date",
+    "overviewExcluded": true
   },
   "firstName": {
     "label": "First Name",
@@ -39,7 +41,8 @@
     "required": false,
     "hidden": false,
     "pattern": "^[A-Z][a-z]{0,30}$",
-    "type": "text"
+    "type": "text",
+    "overviewExcluded": true
   },
   "email": {
     "label": "Email",
@@ -54,20 +57,22 @@
     "hidden": false,
     "pattern": "^[+]?\\d\\s?[(]?(\\d{3})[)]?\\s?\\d{3}[-]?(\\d{2}[-]?\\d{2})|(\\d{4})$",
     "mask": "+9 (999) 999-99-99",
-    "type": "mask"
+    "type": "mobile phone"
   },
   "description": {
     "label": "Description",
     "required": false,
     "hidden": false,
     "pattern": ".*",
-    "type": "textarea"
+    "type": "textarea",
+    "overviewExcluded": true
   },
   "registrationTime": {
     "label": "Registration Time",
     "required": false,
     "hidden": true,
     "pattern": null,
-    "type": "date"
+    "type": "datetime",
+    "overviewExcluded": true
   }
 }

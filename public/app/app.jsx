@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import UserTable from './users/UserTable.jsx';
 import ReactModal from 'react-modal';
-import style from './app.css'
-import fields from './user-fields.json'
+import style from './app.css';
+import fields from './user-fields.json';
 
 class App extends Component {
 

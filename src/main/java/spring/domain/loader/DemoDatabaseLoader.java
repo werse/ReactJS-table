@@ -9,8 +9,8 @@ import spring.domain.dao.UserRepository;
 import spring.domain.entity.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Random;
 
 @Component
 public class DemoDatabaseLoader implements CommandLineRunner {
@@ -23,21 +23,23 @@ public class DemoDatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        userRepository.save(user("Deforrest ", "Marshall", "Cale"));
-        userRepository.save(user("Ollie", "Terrence", "Alec"));
-        userRepository.save(user("Marlowe", "Barney", "Bill"));
-        userRepository.save(user("Al", "Rod", "Ansel"));
-        userRepository.save(user("Oliver", "Marlowe", "Beau"));
+        userRepository.save(user("Dezmont", "Cale", "Hume", "79991112233"));
+        userRepository.save(user("Ollie", "Terrence", "Alec", "79991112355"));
+        userRepository.save(user("Marlowe", "Barney", "Bill", "79991112666"));
+        userRepository.save(user("Al", "Rod", "Ansel", "79993334455"));
+        userRepository.save(user("Oliver", "Marlowe", "Beau", "79996667788"));
     }
 
-    private User user(String firstName, String middleName, String lastName) {
+    private User user(String firstName, String middleName, String lastName, String phone) {
         return User.builder()
-            .dateOfBirth(LocalDate.now().minusYears(50L))
-            .registrationTime(LocalDateTime.now(ZoneId.of("UTC")))
+            .dateOfBirth(LocalDate.now().minusYears(20 + (long)(new Random().nextDouble()*(70))))
+            .registrationTime(ZonedDateTime.now())
             .username((firstName + middleName).toLowerCase())
             .firstName(firstName)
             .middleName(middleName)
             .lastName(lastName)
+            .phone(phone)
+            .email(firstName.toLowerCase() + "_" + lastName.toLowerCase() + "@mail.com")
             .build();
     }
 }

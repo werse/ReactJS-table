@@ -37,7 +37,8 @@ export default class TextFieldWithValidation extends React.Component {
       <FormGroup controlId={this.props.id} validationState={required && this.getValidationState()} className={`${hidden ? 'hidden':''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <FormControl type="text" autoComplete='off' placeholder={placeholder} onChange={this.handleChange} />
+          <FormControl type="text" autoComplete='off' placeholder={placeholder} onChange={this.handleChange}
+            value={this.state.formObject[this.props.id]} onBlur={this.props.onBlur}/>
           <FormControl.Feedback />
         </Col>
       </FormGroup>
