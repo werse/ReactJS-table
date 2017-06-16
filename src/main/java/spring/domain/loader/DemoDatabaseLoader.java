@@ -34,7 +34,7 @@ public class DemoDatabaseLoader implements CommandLineRunner {
         return User.builder()
             .dateOfBirth(LocalDate.now().minusYears(20 + (long)(new Random().nextDouble()*(70))))
             .registrationTime(ZonedDateTime.now())
-            .username((firstName + middleName).toLowerCase())
+            .username((firstName + lastName).toLowerCase())
             .firstName(firstName)
             .middleName(middleName)
             .lastName(lastName)
