@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Alert, Button} from 'react-bootstrap';
+import {Modal, Form, Alert, Button, Fade} from 'react-bootstrap';
 import moment from 'moment';
 import TextFieldWithValidation from '../form/fields/TextFieldWithValidation.jsx';
 import TextField from '../form/fields/TextField.jsx';
@@ -14,24 +14,33 @@ export default class UserDetails extends React.Component {
     this.state = {
       alertIsVisible: false,
       user: props.user,
-      users: props.users,
       alertMessage: undefined,
-      initialUser: $.extend({}, props.user)
+      tmpUser: $.extend({}, props.user)
     }
     this.updateUser = this.updateUser.bind(this);
   }
 
   updateUser() {
-    const {user, users, initialUser} = this.state;
-    let message = this.checkUserFields(user, this.props.fields);
+    let {tmpUser} = this.state;
+    let {user, fields} = this.props;
+    let message = this.checkUserFields(tmpUser, fields);
     if (message) {
       this.setState({alertIsVisible: true, alertMessage: message});
       return;
     }
-    user.dateOfBirth = moment(user.dateOfBirth).format('YYYY-MM-DD');
-    user.phone = user.phone.replace(/\+|[\(]|[\)]|\s|-/g, '');
-    if (JSON.stringify(user) !== JSON.stringify(initialUser)) {
-      $.post(`/user/${user.username}`, user).fail(error => this.setState({alertIsVisible: true, alertMessage: error.responseJSON.message}))
+    tmpUser.dateOfBirth = moment(tmpUser.dateOfBirth).format('YYYY-MM-DD');
+    tmpUser.phone = tmpUser.phone.replace(/\+|[\(]|[\)]|\s|-/g, '');
+    if (JSON.stringify(user) !== JSON.stringify(tmpUser)) {
+      $.post(`/user/${user.id}`, tmpUser)
+      .done((response) => {
+        this.handleAlertDismiss();
+        for (let key in user) {
+          user[key] = response[key];
+        }
+      })
+      .fail(error => {
+        this.setState({alertIsVisible: true, alertMessage: error.responseJSON.message});
+      });
     }
   }
 
@@ -48,41 +57,42 @@ export default class UserDetails extends React.Component {
   }
 
   render() {
-    const {show, onHide, user, fields} = this.props;
-    const {alertIsVisible, alertMessage} = this.state;
+    const {show, onHide, fields} = this.props;
+    const {alertIsVisible, alertMessage, tmpUser} = this.state;
+    console.log('alert is visible: ', alertIsVisible);
     return (
       <Modal onHide={onHide} show={show} bsSize='lg'>
         <Modal.Header closeButton onHide={onHide}>
           <Modal.Title>{'Create New User'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {alertIsVisible &&
+          <Fade in={alertIsVisible} transitionAppear={true} unmountOnExit={true} mountOnEnter={true}>
             <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss.bind(this)}>
               <p>{alertMessage}</p>
-            </Alert>}
+            </Alert>
+          </Fade>
           <Form horizontal>
             {Object.keys(fields).map(key => {
               const $field = fields[key]
               if ($field.type === 'text' && $field.required) {
-                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={user} onBlur={this.updateUser} />;
+                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
               }
               if ($field.type === 'text' && !$field.required) {
-                return <TextField field={$field} id={key} key={key} formObject={user} onBlur={this.updateUser} />;
+                return <TextField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
               }
               if ($field.type === 'textarea') {
-                return <TextArea field={$field} id={key} key={key} formObject={user} onBlur={this.updateUser} />;
+                return <TextArea field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
               }
               if ($field.type === 'date' || $field.type === 'datetime') {
-                return <DatePickerComp field={$field} id={key} key={key} formObject={user} onBlur={this.updateUser} />;
+                return <DatePickerComp field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
               }
               if ($field.mask) {
-                return <MaskedField field={$field} id={key} key={key} formObject={user} onBlur={this.updateUser} />;
+                return <MaskedField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
               }
             })}
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={onHide}>{'Save'}</Button>
           <Button onClick={onHide}>{'Close'}</Button>
         </Modal.Footer>
       </Modal>

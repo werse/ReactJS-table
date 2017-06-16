@@ -25,7 +25,7 @@ export default class TextField extends React.Component {
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
           <FormControl type="text" placeholder={placeholder} onChange={this.handleChange}
-            value={this.state.formObject[this.props.id]} onBlur={this.props.onBlur}/>
+            value={this.state.formObject[this.props.id] || undefined} onBlur={this.props.onBlur}/>
         </Col>
       </FormGroup>
     );

@@ -28,18 +28,45 @@ public class UserController {
     }
 
     @RequestMapping(method = POST, value = "/user", consumes = APPLICATION_FORM_URLENCODED_VALUE)
-    public User saveUser(User user) throws Exception {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            throw new Exception("User with given username already exist in database");
-        }
+    public User saveUser(User user) {
+        checkUser(user);
         user.setRegistrationTime(ZonedDateTime.now());
         return userRepository.save(user);
     }
 
-    @RequestMapping(method = POST, value="/user/{$username}", consumes = APPLICATION_FORM_URLENCODED_VALUE)
-    public User updateUser(@PathVariable("$username") String username, User user) throws Exception {
-        if (userRepository.findByUsername(username).isPresent()) {
+    @RequestMapping(method = POST, value = "/user/{userId}", consumes = APPLICATION_FORM_URLENCODED_VALUE)
+    public User updateUser(@PathVariable("userId") String id, User user) {
+        checkUser(user);
+        if (userRepository.findOne(Long.parseLong(id)) != null) {
             return userRepository.save(user);
-        } else throw new Exception("User not found");
+        } else throw new RuntimeException("User not found");
+    }
+
+    private void checkUser(User user) {
+        if (user.getId() != null) {
+            userRepository.findById(user.getId()).ifPresent(usr -> {
+                if (!usr.getUsername().equals(user.getUsername())) {
+                    checkUsername(user.getUsername());
+                }
+                if (!usr.getEmail().equals(user.getEmail())) {
+                    checkEmail(user.getEmail());
+                }
+            });
+        } else {
+            checkUsername(user.getUsername());
+            checkEmail(user.getEmail());
+        }
+    }
+
+    private void checkUsername(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("User with this username already exists");
+        }
+    }
+
+    private void checkEmail(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("User with this email already exists");
+        }
     }
 }
