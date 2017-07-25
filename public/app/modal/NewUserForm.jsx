@@ -30,8 +30,9 @@ export default class NewUserForm extends React.Component {
     user.dateOfBirth = moment(user.dateOfBirth).format('YYYY-MM-DD');
     user.phone = user.phone.replace(/\+|[\(]|[\)]|\s|-/g, '');
     $.post('/user', user).done(user => {
-      this.setState({users: users.push(user)});
-      this.props.onHide();}
+        this.setState({users: users.push(user)});
+        this.props.onHide();
+      }
     ).fail(error => this.setState({alertIsVisible: true, alertMessage: error.responseJSON.message}));
   }
 
@@ -60,20 +61,20 @@ export default class NewUserForm extends React.Component {
         </Modal.Header>
         <Modal.Body>
           {alertIsVisible &&
-            <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss.bind(this)}>
-              <p>{alertMessage}</p>
-            </Alert>}
+          <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss.bind(this)}>
+            <p>{alertMessage}</p>
+          </Alert>}
           <Form horizontal>
             {Object.keys(fields).map(key => {
               const $field = fields[key]
               if ($field.type === 'text' && $field.required) {
-                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={user} />;
+                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={user}/>;
               }
               if ($field.type === 'text' && !$field.required) {
-                return <TextField field={$field} id={key} key={key} formObject={user} />;
+                return <TextField field={$field} id={key} key={key} formObject={user}/>;
               }
               if ($field.type === 'textarea') {
-                return <TextArea field={$field} id={key} key={key} formObject={user} />;
+                return <TextArea field={$field} id={key} key={key} formObject={user}/>;
               }
               if ($field.type === 'date' || $field.type === 'datetime') {
                 return <DatePickerComp field={$field} id={key} key={key} formObject={user}/>;

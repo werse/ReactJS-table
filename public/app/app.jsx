@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isNotificationOpenned: false,
+      isNotificationOpened: false,
       id: 4,
       notificationMessage: "Technical Error",
       columnNames: [],
@@ -31,7 +31,7 @@ class App extends Component {
       method: 'GET',
       url: '/users',
       success: response => this.setState({users: response, isLoading: false}),
-      error: () => this.setState({isNotificationOpenned: true, isLoading: false})
+      error: () => this.setState({isNotificationOpened: true, isLoading: false})
     });
   }
 
@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   showNotification() {
-    this.setState({isNotificationOpenned: true});
+    this.setState({isNotificationOpened: true});
   }
 
   afterShowingModal() {
@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   closeNotification() {
-    this.setState({isNotificationOpenned: false});
+    this.setState({isNotificationOpened: false});
   }
 
   addUser() {
@@ -59,24 +59,24 @@ class App extends Component {
     });
   }
 
-getDataTableJSX() {
-  const {users} = this.state;
-  if (users) {
-    return (
-      <UserTable
-        className='table table-hover mt-3'
-        users={users}
-        fields={fields}
-        showNotification={this.showNotification}/>);
+  getDataTableJSX() {
+    const {users} = this.state;
+    if (users) {
+      return (
+        <UserTable
+          className='table table-hover mt-3'
+          users={users}
+          fields={fields}
+          showNotification={this.showNotification}/>);
+    }
+    return App.getEmptyViewJSX();
   }
-  return this.getEmptyViewJSX();
-}
 
-  getEmptyViewJSX() {
+  static getEmptyViewJSX() {
     return <p className='text-center'>{'No users were loaded'}</p>;
   }
 
-  getSpinnerJSX() {
+  static getSpinnerJSX() {
     return (
       <p className='text-center'>{'data is loading...'}</p>);
   }
@@ -101,7 +101,7 @@ getDataTableJSX() {
     return (
       <div className='container'>
         <h2 className='mt-3 text-center'>Users</h2>
-        {isLoading ? this.getSpinnerJSX() : this.getDataTableJSX()}
+        {isLoading ? App.getSpinnerJSX() : this.getDataTableJSX()}
         {this.getNotificationPopupJSX()}
       </div>
     );

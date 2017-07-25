@@ -8,7 +8,7 @@ export default class MaskedField extends React.Component {
     super(props);
     this.state = {
       formObject: props.formObject
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -34,12 +34,14 @@ export default class MaskedField extends React.Component {
     const {label, mask, hidden, required} = this.props.field;
     const placeholder = `Enter your ${label.toLowerCase()} ...`;
     return (
-      <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden':''}`} validationState={required && this.getValidationState()}>
+      <FormGroup controlId={this.props.id} className={`${hidden ? 'hidden' : ''}`}
+                 validationState={required && this.getValidationState()}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <InputMask mask={mask} maskChar={'_'} placeholder={placeholder} className={'form-control'} onChange={this.handleChange}
-            value={this.state.formObject[this.props.id]} onBlur={this.props.onBlur}/>
-          <FormControl.Feedback />
+          <InputMask mask={mask} maskChar={'_'} placeholder={placeholder} className={'form-control'}
+                     onChange={this.handleChange}
+                     value={this.state.formObject[this.props.id]} onBlur={this.props.onBlur}/>
+          <FormControl.Feedback/>
         </Col>
       </FormGroup>
     );

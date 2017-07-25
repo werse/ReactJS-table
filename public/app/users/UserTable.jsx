@@ -55,7 +55,7 @@ export default class UserTable extends Component {
 
   render() {
     const {fields} = this.props;
-    const {isUserDetailsOpenned, isNewUserFormOpenned, users} = this.state;
+    const {users} = this.state;
     return (
       <div className='row'>
         {this.isModalOpen() && this.getModalJSX()}

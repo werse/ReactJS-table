@@ -8,7 +8,7 @@ export default class DatePickerComp extends React.Component {
     super(props);
     this.state = {
       formObject: props.formObject
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -37,11 +37,13 @@ export default class DatePickerComp extends React.Component {
     const placeholder = `Enter your ${label.toLowerCase()} ...`;
     const value = formObject[id] ? new Date(formObject[id]).toISOString() : undefined;
     return (
-      <FormGroup controlId={id} validationState={required ? this.getValidationState() : null} className={`${hidden ? 'hidden':''}`}>
+      <FormGroup controlId={id} validationState={required ? this.getValidationState() : null}
+                 className={`${hidden ? 'hidden' : ''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
-          <DatePicker placeholder={placeholder} showClearButton={false} onChange={this.handleChange} value={value} onBlur={this.props.onBlur} />
-          <FormControl.Feedback />
+          <DatePicker placeholder={placeholder} showClearButton={false} onChange={this.handleChange} value={value}
+                      onBlur={this.props.onBlur}/>
+          <FormControl.Feedback/>
         </Col>
       </FormGroup>
     );

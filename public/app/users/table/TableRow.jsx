@@ -32,7 +32,7 @@ export default class TableRow extends React.Component {
               let tmp = value.match(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/);
               value = `+${tmp[1]} (${tmp[2]}) ${tmp[3]}-${tmp[4]}-${tmp[5]}`;
             }
-            return <TableCell key={`${key}`} value={value} />;
+            return <TableCell key={`${key}`} value={value}/>;
           }
         })}
       </tr>

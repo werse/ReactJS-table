@@ -32,15 +32,15 @@ export default class UserDetails extends React.Component {
     tmpUser.phone = tmpUser.phone.replace(/\+|[\(]|[\)]|\s|-/g, '');
     if (JSON.stringify(user) !== JSON.stringify(tmpUser)) {
       $.post(`/user/${user.id}`, tmpUser)
-      .done((response) => {
-        this.handleAlertDismiss();
-        for (let key in user) {
-          user[key] = response[key];
-        }
-      })
-      .fail(error => {
-        this.setState({alertIsVisible: true, alertMessage: error.responseJSON.message});
-      });
+       .done((response) => {
+         this.handleAlertDismiss();
+         for (let key in user) {
+           user[key] = response[key];
+         }
+       })
+       .fail(error => {
+         this.setState({alertIsVisible: true, alertMessage: error.responseJSON.message});
+       });
     }
   }
 
@@ -75,19 +75,21 @@ export default class UserDetails extends React.Component {
             {Object.keys(fields).map(key => {
               const $field = fields[key]
               if ($field.type === 'text' && $field.required) {
-                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
+                return <TextFieldWithValidation id={key} field={$field} key={key} formObject={tmpUser}
+                                                onBlur={this.updateUser}/>;
               }
               if ($field.type === 'text' && !$field.required) {
-                return <TextField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
+                return <TextField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser}/>;
               }
               if ($field.type === 'textarea') {
-                return <TextArea field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
+                return <TextArea field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser}/>;
               }
               if ($field.type === 'date' || $field.type === 'datetime') {
-                return <DatePickerComp field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
+                return <DatePickerComp field={$field} id={key} key={key} formObject={tmpUser}
+                                       onBlur={this.updateUser}/>;
               }
               if ($field.mask) {
-                return <MaskedField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser} />;
+                return <MaskedField field={$field} id={key} key={key} formObject={tmpUser} onBlur={this.updateUser}/>;
               }
             })}
           </Form>

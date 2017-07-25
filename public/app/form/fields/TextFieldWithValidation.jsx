@@ -8,7 +8,7 @@ export default class TextFieldWithValidation extends React.Component {
     super(props);
     this.state = {
       formObject: props.formObject
-    }
+    };
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -37,12 +37,13 @@ export default class TextFieldWithValidation extends React.Component {
     const {formObject} = this.state;
     const placeholder = `Enter your ${label.toLowerCase()} ...`;
     return (
-      <FormGroup controlId={id} validationState={required && this.getValidationState()} className={`${hidden ? 'hidden':''}`}>
+      <FormGroup controlId={id} validationState={required && this.getValidationState()}
+                 className={`${hidden ? 'hidden' : ''}`}>
         <Col sm={3} componentClass={ControlLabel}>{label}</Col>
         <Col sm={9}>
           <FormControl type="text" autoComplete='off' placeholder={placeholder} onChange={this.handleChange}
-            value={formObject[id] || undefined} onBlur={this.props.onBlur}/>
-          <FormControl.Feedback />
+                       value={formObject[id] || undefined} onBlur={this.props.onBlur}/>
+          <FormControl.Feedback/>
         </Col>
       </FormGroup>
     );
